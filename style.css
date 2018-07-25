@@ -1,0 +1,568 @@
+/*GENERAL*/
+
+body{
+	margin: 0px;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+}
+
+@-webkit-keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {-webkit-transform: translateY(0);} 
+    40% {-webkit-transform: translateY(-20px);}
+    60% {-webkit-transform: translateY(-10px);}
+}
+ 
+@-moz-keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {-moz-transform: translateY(0);}
+    40% {-moz-transform: translateY(-20px);}
+    60% {-moz-transform: translateY(-10px);}
+}
+ 
+@-o-keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {-o-transform: translateY(0);}
+    40% {-o-transform: translateY(-20px);}
+    60% {-o-transform: translateY(-10px);}
+}
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+    40% {transform: translateY(-20px);}
+    60% {transform: translateY(-10px);}
+}
+
+
+/* --------------------  MENU ------------------- */
+header
+{
+	background: linear-gradient(#303030, #000000);
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+header img
+{
+	width:180px;
+	height:68px;
+	margin: 8px 0;
+}
+
+header ul
+{
+	list-style-type: none;
+	display: flex;
+}
+
+
+header ul li a
+{
+	text-decoration: none;
+	color:white;
+	font-family: 'Montserrat', 'helvetica', sans-serif;
+	padding-left: 2.5em;
+	font-size: 1.3em;
+
+}
+
+header ul li:nth-child(1) a:hover
+{
+	color:#13eb86;
+}
+
+header ul li:nth-child(2) a:hover
+{
+	color:#16b0ec;
+}
+
+header ul li:nth-child(3) a:hover
+{
+	color:#6768fe;
+}
+
+
+/* --------------------  SLIDER JS ------------------- */
+
+
+.slideshow-container
+{
+	width: 100%;
+	height: 700px;
+	overflow: hidden;
+	position: relative;
+}
+
+.slideshow-container img
+{
+	width: 100%;
+	min-width: 750px;
+}
+
+.mySlides
+{
+	max-width: 100%;
+	max-height: 700px;
+	width: auto;
+	height: auto;
+	position: absolute;
+}
+.slideshow-container div
+{
+	opacity: 1;
+}
+
+.slideshow-container div + div
+{
+	opacity: 0;
+} 
+
+#prev, #next
+{
+	cursor: pointer;
+	position: absolute;
+	top: 50%;
+	width: auto;
+	margin-top: -22px;
+	padding: 16px;
+	color: white;
+	font-weight: bold;
+	font-size: 28px;
+	transition: 0.6s ease;
+	background-color: rgba(0,0,0,0.5)
+}
+
+#prev
+{
+	border-radius: 0 6px 6px 0;
+}
+
+#next
+{
+	right:0;
+	border-radius: 6px 0 0 6px;
+}
+
+#prev:hover, #next:hover
+{
+	background-color: rgba(0,0,0,0.8);
+}
+
+.mySlides
+{
+	opacity: 0;
+}
+
+/* Caption text */
+.mySlides .text {
+  color: white;
+  font-size: 42px;
+  padding-left: 10px;
+  padding-right: 10px;
+  position: absolute;
+  bottom: 50%;
+  width: 100%;
+  text-align: center;
+  text-shadow:  0px 4px 3px rgba(0,0,0,0.4),
+             	0px 8px 13px rgba(0,0,0,0.1),
+            	0px 18px 23px rgba(0,0,0,0.1);
+}
+
+#book
+{
+	z-index: 5;
+	position: absolute;
+	bottom: 5%;
+	left: 47%;
+	background:rgba(0,0,0,0.2);
+	padding: 8px 20px;
+	border-radius: 3px 3px 15px 3px;
+	transition: 0.8s;
+	animation: bounce 2s infinite;
+    -webkit-animation: bounce 2s infinite;
+    -moz-animation: bounce 2s infinite;
+    -o-animation: bounce 2s infinite;
+}
+
+
+#book i
+{
+	font-size: 48px;
+	color:white;
+	opacity: 0.8;
+	transition: 0.8s;
+}
+
+#book:hover
+{
+	background:rgba(0,0,0,0.4);
+	cursor: pointer;
+	
+}
+
+#book:hover>i
+{
+	opacity: 1;
+	
+}
+
+
+/* --------------------  CARTE VELO'V ------------------- */
+
+#map
+{
+	width: 80%;
+	height: 600px;
+	margin: 90px 0px 0px 30px;
+	border-radius: 15px 0px 0px 15px;
+	transition: .6s;
+}
+
+.location h1
+{
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 38px;
+	letter-spacing: 10px;
+	color: white;
+	background-color: black;
+	padding: 10px 30px;	
+}
+
+.location i
+{
+	color: #15d8a5;
+	margin-right: 20px;
+	background:black;
+	border-radius: 50%;
+	padding: 8px 10px;
+}
+
+.gradient
+{
+	background: -moz-linear-gradient(left, #15d9a4 0%, #1db5d9 51%, #6669fe 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left, #15d9a4 0%,#1db5d9 51%,#6669fe 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right, #15d9a4 0%,#1db5d9 51%,#6669fe 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#15d9a4', endColorstr='#6669fe',GradientType=1 ); /* IE6-9 */
+	width: 80%;
+	height: 72px;
+	margin: 80px auto;
+	padding-bottom: -10px;
+	
+}
+
+.location p
+{
+	text-align: center;
+	font-size: 22px;
+}
+
+.section-map
+{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	margin-bottom: 100px;
+
+}
+
+/* --------------------  PANNEAU RESERVATION ------------------- */
+
+#panneau
+{
+	
+	margin : 90px 30px 0px 0px;
+	padding-left: ;
+	background: linear-gradient(#303030, #000000);
+	color: white;
+	width: 450px;
+	border-radius: 0px 15px 15px 0px;
+	transform: translateX(500px);
+	display: none;
+	transition: .6s;
+}
+
+#panneau h3
+{
+	text-align: center;
+	margin-top: 0px;
+	margin-bottom: 30px;
+	font-family: 'Montserrat', serif;
+	letter-spacing: 6px;
+	background: -moz-linear-gradient(left, #15d9a4 0%, #1db5d9 51%, #6669fe 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left, #15d9a4 0%,#1db5d9 51%,#6669fe 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right, #15d9a4 0%,#1db5d9 51%,#6669fe 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#15d9a4', endColorstr='#6669fe',GradientType=1 ); /* IE6-9 */
+	padding: 20px 0;
+	font-weight: bold;
+	font-size: 22px;
+	border-radius: 0px 15px 0px 0px;
+}
+
+#panneau ul li
+{
+	list-style: none;
+	margin-left: 10px;
+	margin-bottom: 30px;
+	font-size: 14px;
+}
+
+
+
+#panneau .boutton-resa
+{
+	text-decoration: none;
+	color:white;
+	display: block;
+	background: -moz-linear-gradient(left, #15d9a4 0%, #1db5d9 51%, #6669fe 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left, #15d9a4 0%,#1db5d9 51%,#6669fe 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right, #15d9a4 0%,#1db5d9 51%,#6669fe 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#15d9a4', endColorstr='#6669fe',GradientType=1 ); /* IE6-9 */
+	width: 200px;
+	padding-top: 2px;
+	line-height: 45px;
+	border-radius: 3px;
+	margin : 0 auto;
+	text-align: center;
+	font-weight: bold;
+	margin-top: 30px;
+	letter-spacing: 8px;
+	font-size: 18px;
+}
+
+#panneau .boutton-resa:hover
+{
+	background: -moz-linear-gradient(left, #ff9234 0%, #ee2a3e 51%, #a92a5d 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left, #ff9234 0%, #ee2a3e 51%, #a92a5d 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right,#ff9234 0%, #ee2a3e 51%, #a92a5d 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#panneau strong
+{
+	margin-right: 10px;
+	font-weight: bold;
+}
+
+
+#Street 
+{
+	display: block;
+	height: 200px;
+	width: 300px;
+	background:grey;
+	margin: 30px auto;
+}
+
+.widget-scene-canvas
+{
+	border-radius: 0px 10px 10px 0px;
+}
+
+
+#Street .gm-iv-address-link, #Street .gm-style-cc, .gm-iv-marker-icon, .gm-iv-marker-icon-background, .gm-iv-marker a
+{
+	display: none;
+}
+
+
+
+/* --------------------  CANVAS SIGNATURE ------------------- */
+
+/* Empeche la selection de texte dans la zone entourant le canvas afin d'eviter les conflits lorsque la souris sort de la zone canvas*/
+#reservation
+{
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+
+
+#reservation p
+{
+	background: -moz-linear-gradient(left, #15d9a4 0%, #1db5d9 51%, #6669fe 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left, #15d9a4 0%,#1db5d9 51%,#6669fe 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right, #15d9a4 0%,#1db5d9 51%,#6669fe 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#15d9a4', endColorstr='#6669fe',GradientType=1 ); /* IE6-9 */
+	color: white;
+	font-weight: bold;
+	letter-spacing: 2px;
+	padding: 20px 0px;
+}
+
+#bg-reservation
+{
+	background: url(images/background-resa.jpg);
+	background-repeat: repeat;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	display: none;
+}
+
+#canvas
+{
+	display: block;
+	background-color: #e1e1e1;
+	margin: 6.5% auto;
+	border-radius: 0px 0px 15px 0px;
+}
+
+#reservation
+{
+	margin: 7% 10%;
+	background: linear-gradient(#303030, #000000);
+	height: 600px;
+	border-radius: 0px 0px 15px 0px;
+	
+}
+
+#bouttons-valid
+{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+#bouttons-valid button 
+{
+	margin: 0% 3%;
+	width: 25%;
+	line-height: 30px;
+	background: -moz-linear-gradient(left, #15d9a4 0%, #1db5d9 51%, #6669fe 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left, #15d9a4 0%,#1db5d9 51%,#6669fe 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right, #15d9a4 0%,#1db5d9 51%,#6669fe 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#15d9a4', endColorstr='#6669fe',GradientType=1 ); /* IE6-9 */
+	color:white;
+	font-size: 18px;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-family: 'Montserrat', sans-serif;
+	border:none;
+	border-radius: 3px;
+	letter-spacing: 6px;
+}
+
+#btn-annuler
+{
+	display: block;
+	margin: 0 auto;
+	margin-bottom: 40px;
+	width: 25%;
+	line-height: 30px;
+	background: -moz-linear-gradient(left, #15d9a4 0%, #1db5d9 51%, #6669fe 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left, #15d9a4 0%,#1db5d9 51%,#6669fe 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right, #15d9a4 0%,#1db5d9 51%,#6669fe 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#15d9a4', endColorstr='#6669fe',GradientType=1 ); /* IE6-9 */
+	color:white;
+	font-size: 18px;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-family: 'Montserrat', sans-serif;
+	border:none;
+	border-radius: 3px;
+	letter-spacing: 6px;
+}
+
+
+#bouttons-valid button:hover, #btn-annuler:hover
+{
+	background: -moz-linear-gradient(left, #ff9234 0%, #ee2a3e 51%, #a92a5d 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left, #ff9234 0%, #ee2a3e 51%, #a92a5d 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right,#ff9234 0%, #ee2a3e 51%, #a92a5d 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	cursor: pointer;
+	border:none !important;
+}
+
+#bouttons-valid button:active, 
+#bouttons-valid button:visited
+{
+	border:none !important;
+}
+
+#bg-reservation canvas
+{
+	cursor: url("images/cursor.png") 3 43 , auto;
+}
+
+
+/* --------------------- COMPTEUR -------------------- */
+
+.compteurWrapper
+{
+	margin: 7% 10%;
+	background: linear-gradient(#303030, #000000);
+	height: 420px;
+	border-radius: 0px 0px 15px 0px;
+	display: none;
+}
+
+.compteurWrapper h4
+{
+	text-align: center;
+	margin-top: 0px;
+	margin-bottom: 30px;
+	font-family: 'Montserrat', serif;
+	letter-spacing: 6px;
+	background: -moz-linear-gradient(left, #15d9a4 0%, #1db5d9 51%, #6669fe 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left, #15d9a4 0%,#1db5d9 51%,#6669fe 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right, #15d9a4 0%,#1db5d9 51%,#6669fe 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#15d9a4', endColorstr='#6669fe',GradientType=1 ); /* IE6-9 */
+	padding: 20px 0;
+	font-weight: bold;
+	font-size: 22px;
+	border-radius: 0px;
+	color: white;
+	text-transform: uppercase;
+}
+
+.compteurWrapper h4:nth-child(2)
+{
+	background: -moz-linear-gradient(left, #ff9234 0%, #ee2a3e 51%, #a92a5d 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left, #ff9234 0%, #ee2a3e 51%, #a92a5d 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right,#ff9234 0%, #ee2a3e 51%, #a92a5d 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	display: none;
+}
+
+.compteurWrapper p, .compteurWrapper strong
+{
+	color:white;
+}
+
+#texteInfoResa strong
+{
+	color:#12e78a;
+}
+
+#compteur
+{
+	font-size:36px;
+	color:#f85243;
+	font-weight: bold;
+	margin-bottom: 30px;
+}
+
+
+/* --------------------  FOOTER ------------------- */
+
+footer
+{
+	background: linear-gradient(#303030, #000000);
+	margin: 0;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+footer img
+{
+	width:180px;
+	height:68px;
+	margin: 1% 10%;
+}
+
+footer p
+{
+	color: white;
+	margin: 1%
+}
