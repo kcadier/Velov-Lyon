@@ -23,26 +23,26 @@ function Maps(lattitude, longitude) {
   
   this.imageMarker = function(statusStation, txRemplissage){
     if(statusStation === "CLOSED") {
-      this.icon = "./images/veloMarker/markerClosed.png"; // Fermée
+      this.icon = "./images/VeloMarker/markerClosed.png"; // Fermée
     } 
 
     else if (txRemplissage === 0){
-      this.icon = "./images/veloMarker/marker00.png";
+      this.icon = "./images/VeloMarker/marker00.png";
       }
     else if (txRemplissage<=0.2){
-      this.icon = "./images/veloMarker/marker02.png";
+      this.icon = "./images/VeloMarker/marker02.png";
       }
     else if (txRemplissage<=0.4){
-      this.icon = "./images/veloMarker/marker04.png";
+      this.icon = "./images/VeloMarker/marker04.png";
       }
     else if (txRemplissage<=0.6){
-      this.icon = "./images/veloMarker/marker06.png";
+      this.icon = "./images/VeloMarker/marker06.png";
       }
     else if (txRemplissage<=0.8){
-      this.icon = "./images/veloMarker/marker08.png";
+      this.icon = "./images/VeloMarker/marker08.png";
       }
     else{
-          this.icon = "./images/veloMarker/marker10.png"; // Ouverte
+          this.icon = "./images/VeloMarker/marker10.png"; // Ouverte
           }
   };
 

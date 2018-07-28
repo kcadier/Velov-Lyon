@@ -1,13 +1,17 @@
 
-function compteur() {
-	this.minutes = 20;
-	this.secondes = 00;
+function compteur(secondes, interval) {
+
+	this.secondes = secondes;
+	this.interval = interval;
 	this.minutesElt = null; //element minute qui est inséré dans l'HTML
 	this.secondesElt = null; //element seconde qui est inséré dans l'HTML
 	this.nomStation = null;
 	this.compteARebour = null;
 	this.compteARebourFin = null;
 	this.annulationDeLaReservation = false;
+
+	var self = this;
+
 
 	//confirmation d'une reservation
 	this.confirmationReservation = function() {
@@ -24,27 +28,34 @@ function compteur() {
 		this.majAffichageCompteur();
 
 		// Lancement du compte à rebours avec setInterval toutes les 1sec
-		this.compteARebour = setInterval(this.majCompteur, 1000);
+		
+		this.compteARebour = setInterval(function () {
+			self.majCompteur();
+		}, this.interval);
 
 	};
 
 	this.majAffichageCompteur = function() {
-		if(this.minutes < 10) {
+		if((this.secondes < 600) && (this.secondes>0)) {
 			// ajoute un 0 quand un seul chiffre
-			this.minutesElt = "0" + this.minutes;
-			//affiche les minutes normalement dans l'html
- 		} else {
- 			this.minutesElt = this.minutes;
+			this.minutesElt = "0" + Math.floor(this.secondes/60);
+			this.secondesElt = Math.floor(this.secondes%60);
+ 		} 
+
+ 		else if(this.secondes<=0)
+ 		{
+ 			this.secondesElt = "0";
+ 			this.minutesElt = "00";
  		}
 
- 		if(this.secondes < 10) {
- 			//ajoute un 0 quand un seul chiffre
- 			this.secondesElt = "0" + this.secondes;
- 			//Affiche les secondes normalement dans l'html
- 		} else {
- 			this.secondesElt = this.secondes;
- 		}
+ 		else {
+ 			this.minutesElt = Math.floor(this.secondes/60);
+ 			this.secondesElt = Math.floor(this.secondes%60);
+ 		} 
 
+ 		if(this.secondesElt <10){
+ 			this.secondesElt = "0" + this.secondesElt;
+ 		}
 		// Insertion du compteur dans l'HTML
 		document.getElementById("compteur").innerHTML = this.minutesElt + " : " + this.secondesElt;
 
@@ -52,25 +63,24 @@ function compteur() {
 
 
 	this.majCompteur = function() {
+
 		
-		if ((this.minutes >= 0) && (this.secondes > 0)) {
+		if (this.secondes >= 0) {
 
 			this.secondes--;
-
-		} else if((this.minutes > 0) && (this.secondes <=0)) {
-			this.secondes = 59;
-			this.minutes--;
 
 		} else {
 			document.getElementById("FinDeReservation").style.display = "block";
 			document.getElementById("ReservationOk").style.display = "none";
 
-			this.compteARebourFin = setTimeout(this.finDeLaReservation, 2000);
+			this.compteARebourFin = setTimeout(this.finDeLaReservation, 3000);
 			// Arret du compte à rebours à 00:00
 			clearInterval(this.compteARebour);
 		}
-			console.log(this);	
-			this.majAffichageCompteur(); // <<<------------------------ C'est ici que le 'this' cible window, alors que tous les autres this dans les méthodes cibles bien l'objet, je ne comprends pas la logique !!!
+
+		//console.log(self);
+
+		self.majAffichageCompteur();
 				
 		
 	};
@@ -78,10 +88,10 @@ function compteur() {
 	this.finDeLaReservation = function() {
 
 		//Reset du compteur
-		this.minutes = 20;
-		this.secondes = 00;
-		this.minutesElt = null;
-		this.secondesElt = null;		
+		self.secondes = secondes;
+		self.minutesElt = null;
+		self.secondesElt = null;
+		console.log(self);	
 
 		// Remet l'affichage des blocs par défaut
 		document.getElementsByClassName("compteurWrapper")[0].style.display = "none";
@@ -91,7 +101,7 @@ function compteur() {
 
 }
 
-var compteurReservation = new compteur();
+var compteurReservation = new compteur(1200,1000);
 
 document.getElementById("btn-valider").addEventListener("click", function() {
 	compteurReservation.confirmationReservation();
