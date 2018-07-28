@@ -118,7 +118,6 @@ var signatureCanvas = {
     },
 
     canvasClear : function(){
-        console.log(signatureCanvas);
         signatureCanvas.context.clearRect(0, 0, document.getElementById("canvas").width, document.getElementById('canvas').height);
         // Comme le canvas est vide, on re cache le bouton valider
         document.getElementById('btn-valider').style.display = "none";

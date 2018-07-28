@@ -1,16 +1,16 @@
 
-var compteur = {
-	minutes : 20,
-	secondes : 00,
-	minutesElt : null, //element minute qui est inséré dans l'HTML
-	secondesElt : null, //element seconde qui est inséré dans l'HTML
-	nomStation : null,
-	compteARebour : null,
-	compteARebourFin : null,
-	annulationDeLaReservation : false,
+function compteur() {
+	this.minutes = 20;
+	this.secondes = 00;
+	this.minutesElt = null; //element minute qui est inséré dans l'HTML
+	this.secondesElt = null; //element seconde qui est inséré dans l'HTML
+	this.nomStation = null;
+	this.compteARebour = null;
+	this.compteARebourFin = null;
+	this.annulationDeLaReservation = false;
 
 	//confirmation d'une reservation
-	confirmationReservation : function() {
+	this.confirmationReservation = function() {
 
 		//Recache le canvas + panneau infos
 		document.getElementById("panneau").style.display = "none";
@@ -18,83 +18,86 @@ var compteur = {
 
 		// Insertion du nom de la station
 		document.getElementsByClassName("compteurWrapper")[0].style.display = "block";
-		document.querySelector("#texteInfoResa strong").innerHTML = Station.nom;
+		document.querySelector("#texteInfoResa strong").innerHTML = lyonStation.nom;
 
 		// MAJ Affichage avant le lancement
-		compteur.majAffichageCompteur();
+		this.majAffichageCompteur();
 
 		// Lancement du compte à rebours avec setInterval toutes les 1sec
-		compteur.compteARebour = setInterval(compteur.majCompteur, 1000);
+		this.compteARebour = setInterval(this.majCompteur, 1000);
 
-	},
+	};
 
-	majAffichageCompteur : function() {
-		if(compteur.minutes < 10) {
+	this.majAffichageCompteur = function() {
+		if(this.minutes < 10) {
 			// ajoute un 0 quand un seul chiffre
-			compteur.minutesElt = "0" + compteur.minutes;
+			this.minutesElt = "0" + this.minutes;
 			//affiche les minutes normalement dans l'html
  		} else {
- 			compteur.minutesElt = compteur.minutes;
+ 			this.minutesElt = this.minutes;
  		}
 
- 		if(compteur.secondes < 10) {
+ 		if(this.secondes < 10) {
  			//ajoute un 0 quand un seul chiffre
- 			compteur.secondesElt = "0" + compteur.secondes;
+ 			this.secondesElt = "0" + this.secondes;
  			//Affiche les secondes normalement dans l'html
  		} else {
- 			compteur.secondesElt = compteur.secondes;
+ 			this.secondesElt = this.secondes;
  		}
 
-
 		// Insertion du compteur dans l'HTML
-		document.getElementById("compteur").innerHTML = compteur.minutesElt + " : " + compteur.secondesElt;
+		document.getElementById("compteur").innerHTML = this.minutesElt + " : " + this.secondesElt;
 
-	},
+	};
 
 
-	majCompteur : function() {
+	this.majCompteur = function() {
 		
-		if ((compteur.minutes >= 0) && (compteur.secondes > 0)) {
+		if ((this.minutes >= 0) && (this.secondes > 0)) {
 
-			compteur.secondes--;
+			this.secondes--;
 
-		} else if((compteur.minutes > 0) && (compteur.secondes <=0)) {
-			compteur.secondes = 59;
-			compteur.minutes--;
+		} else if((this.minutes > 0) && (this.secondes <=0)) {
+			this.secondes = 59;
+			this.minutes--;
 
 		} else {
 			document.getElementById("FinDeReservation").style.display = "block";
 			document.getElementById("ReservationOk").style.display = "none";
 
-			compteur.compteARebourFin = setTimeout(compteur.finDeLaReservation, 2000);
+			this.compteARebourFin = setTimeout(this.finDeLaReservation, 2000);
 			// Arret du compte à rebours à 00:00
-			clearInterval(compteur.compteARebour);
+			clearInterval(this.compteARebour);
 		}
+			console.log(this);	
+			this.majAffichageCompteur(); // <<<------------------------ C'est ici que le 'this' cible window, alors que tous les autres this dans les méthodes cibles bien l'objet, je ne comprends pas la logique !!!
+				
+		
+	};
 
-		compteur.majAffichageCompteur();
-	},
-
-	finDeLaReservation: function() {
+	this.finDeLaReservation = function() {
 
 		//Reset du compteur
-		compteur.minutes = 20;
-		compteur.secondes = 00;
-		compteur.minutesElt = null;
-		compteur.secondesElt = null;
-
-		
+		this.minutes = 20;
+		this.secondes = 00;
+		this.minutesElt = null;
+		this.secondesElt = null;		
 
 		// Remet l'affichage des blocs par défaut
 		document.getElementsByClassName("compteurWrapper")[0].style.display = "none";
 		document.getElementById("FinDeReservation").style.display = "none";
 		document.getElementById("ReservationOk").style.display = "block";
-		console.log("Pourquoi ça fait ça ? ");
-
-	}
+	};
 
 }
 
+var compteurReservation = new compteur();
+
 document.getElementById("btn-valider").addEventListener("click", function() {
-	compteur.confirmationReservation();
+	compteurReservation.confirmationReservation();
 	signatureCanvas.canvasClear();
+})
+
+document.getElementById("btn-annuler").addEventListener("click", function() {
+	compteurReservation.finDeLaReservation();
 })

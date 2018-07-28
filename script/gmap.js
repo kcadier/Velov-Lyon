@@ -1,27 +1,27 @@
 // Objet Google Map + markers
 
-var Maps = {
+function Maps(lattitude, longitude) {
 
-  lat : 45.757, // Lattitude de la carte
-  long : 4.855, // Longitude de la carte
-  icon : "./images/marker.png",
-  arrayOfMarkers : [], // Array qui va stocker les markers pour le clusterer
+  this.lat = lattitude, // Lattitude de la carte
+  this.long = longitude, // Longitude de la carte
+  this.icon = "./images/marker.png",
+  this.arrayOfMarkers = [], // Array qui va stocker les markers pour le clusterer
 
   // Insertion de la carte Google
 
-  initMap : function(){
+  this.initMap = function() {
     map = new google.maps.Map(document.getElementById('map'), {
       center : {lat: this.lat, lng: this.long}, // coordonnées de la carte contenu dans l'objet Maps
       zoom : 13,
       scrollwheel : true
       });
-    },
+    };
 
 
   // On donne une image différente si la station est fermée pour statusStation
   // dans les else if avec txRemplissage on affiche une icone differente en fction du nb de velo dispo par rapport au nb d'attache dispo
   
-  imageMarker: function(statusStation, txRemplissage){
+  this.imageMarker = function(statusStation, txRemplissage){
     if(statusStation === "CLOSED") {
       this.icon = "./images/veloMarker/markerClosed.png"; // Fermée
     } 
@@ -44,32 +44,32 @@ var Maps = {
     else{
           this.icon = "./images/veloMarker/marker10.png"; // Ouverte
           }
-  },
+  };
 
   // méthode d'intégration des markers
 
-  initMarker: function(positionStation){
+  this.initMarker = function(positionStation){
     marker = new google.maps.Marker({
       map : map,
       icon: this.icon,
       position : positionStation // Récupère la position passé en paramètre dans la boucle ForEach de la requête AJAX
     });
     this.arrayOfMarkers.push(marker); // Ajoute les markers dans l'array déclaré en argument au début de l'objet Maps
-  },
+  };
 
-  streetView : function(positionStation) {
+  this.streetView = function(positionStation) {
       streetView = new google.maps.StreetViewPanorama(document.getElementById("Street"), {
       position : positionStation,
       linksControl: false,
       panControl: false
     });
-  },
+  };
 
-  stockMarkers : function(){
+  this.stockMarkers = function(){
     var markerClusterer = new MarkerClusterer(map, this.arrayOfMarkers, 
             {imagePath: "./images/markers/m"});
 
-  }
+  };
 
 };
 
@@ -77,16 +77,16 @@ var Maps = {
 
 // OBJET STATION (API JCDECEAUX)
 
-var Station = {
+function Station() {
 
-  nom : null,
-  etat: null,
-  nbVelo: null,
-  nbAttache: null,
-  insertionDonnees: document.getElementById("InfoStationJS").querySelectorAll("span"),
+  this.nom = null,
+  this.etat = null,
+  this.nbVelo = null,
+  this.nbAttache = null,
+  this.insertionDonnees = document.getElementById("InfoStationJS").querySelectorAll("span"),
 
   // méthode AJAX récupération liste des stations
-  ajaxGet : function(url, callback){
+  this.ajaxGet = function(url, callback){
     req = new XMLHttpRequest();
     req.open("GET", url);
     req.addEventListener("load", function(){
@@ -98,18 +98,18 @@ var Station = {
       }
     });
     req.send(null); // Envoi de la requête
-  },
+  };
 
-  datas : function(data){
+  this.datas = function(data){
     this.nom = data.name;
     this.etat = data.status;
     this.nbVelo = data.available_bikes;
     this.nbAttache = data.available_bike_stands;
-  },
+  };
 
   //insertion des données dans l'HTML
 
-  insertionDonneesStation : function() {
+  this.insertionDonneesStation = function() {
   // Insertion des donnÃ©es dans la page
     document.getElementById("Nom").innerHTML = " <strong> NOM : </strong>  " + this.nom;
     document.getElementById("Etat").innerHTML = " <strong> ETAT : </strong>  " + ((this.etat === 'OPEN') ? 'OUVERTE': 'FERMEÉE');
@@ -118,10 +118,10 @@ var Station = {
     document.getElementById("titre-canvas").innerHTML = " <strong> Confirmez votre réservation à la station : </strong>  " +this.nom;
 
 
-  },
+  };
 
   // Gestion de l'autorisation des reservations
-  autorisationDesReservations: function(){
+  this.autorisationDesReservations = function(){
 
     if(this.etat === "OPEN") {
 
@@ -147,50 +147,54 @@ var Station = {
         document.getElementById("Velos").style.color = "#ed283e";
         document.getElementsByClassName("boutton-resa")[0].style.display = "none";
       }
-  }
+  };
 
 
 };
 
+var velovMaps = new Maps(45.757,4.855);
+
+var lyonStation = new Station();
 
 // Requête Ajax qui permet de récupérer la liste des stations
 
-Station.ajaxGet("https://api.jcdecaux.com/vls/v1/stations?contract=lyon&apiKey=fa9832e5de05b90c18bbf6cd5ccb0f24676f2fa7", function (reponse) {
+lyonStation.ajaxGet("https://api.jcdecaux.com/vls/v1/stations?contract=lyon&apiKey=fa9832e5de05b90c18bbf6cd5ccb0f24676f2fa7", function (reponse) {
   
   var listeStations = JSON.parse(reponse);
 
+  //Debut boucle ForEach
   listeStations.forEach(function(InfoStation) {
 
     // Appel de la méthode pour ajout de marker ouvert ou fermé ?
-    Maps.imageMarker(InfoStation.status, InfoStation.available_bikes/InfoStation.bike_stands); // Récupération % place dispo
+    velovMaps.imageMarker(InfoStation.status, InfoStation.available_bikes/InfoStation.bike_stands); // Récupération % place dispo
 
     // Positionnement des markers
-    Maps.initMarker(InfoStation.position);
+    velovMaps.initMarker(InfoStation.position);
 
     // Event sur le marker
     google.maps.event.addListener(marker, "click", function() {
 
       //Insertion des données dans l'objet "station" 
-      Station.datas(InfoStation);
+      lyonStation.datas(InfoStation);
 
       // Street View
-      Maps.streetView(InfoStation.position);
+      velovMaps.streetView(InfoStation.position);
 
       // Apparition du bloc "info stations"
       $('#panneau').show(100);
       document.getElementById("panneau").style.transform = "translateX(0px)";
 
       //insertion des données dans le bloc
-      Station.insertionDonneesStation();
+      lyonStation.insertionDonneesStation();
 
       // Gestion des autorisation des reservations
-      Station.autorisationDesReservations();
+      lyonStation.autorisationDesReservations();
 
     }); 
   
   }); // Fin de boucle données stations
 
-Maps.stockMarkers(); // Lancement de la méthode pour stocker les markers clusterer
+velovMaps.stockMarkers(); // Lancement de la méthode pour stocker les markers clusterer
 
 // Clic sur le bouton de reservation
 document.getElementsByClassName("boutton-resa")[0].addEventListener("click", function(){

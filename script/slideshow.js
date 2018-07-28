@@ -1,32 +1,32 @@
 // Slideshow accueil
 
-var Slideshow = {
+function Slideshow() {
 
-  slides : document.getElementsByClassName("mySlides"), // On cible les div qui contiennent les slides et les textes
-  slideIndex : 0, // initialisation à 0 => permet de changer d'image
+  this.slides = document.getElementsByClassName("mySlides"); // On cible les div qui contiennent les slides et les textes
+  this.slideIndex = 0; // initialisation à 0 => permet de changer d'image
 
-  clavier : function(e) {
-    if(e.keyCode === 39) {
-      this.slidePlus(); // Touche Droite activée
+  this.clavier = function() {
+    if(event.keyCode === 39) {
+     this.slidePlus(); // Touche Droite activée
     }
 
-    else if(e.keyCode === 37){
-      this.slideMoins(); // Touche Gauche activée
+    else if(event.keyCode === 37){
+     this.slideMoins(); // Touche Gauche activée
     }
-  },
+  };
 
-  slidePlus : function(){
+  this.slidePlus = function() {
 
    this.changeSlide(+1);
-  },
+  };
 
 
-  slideMoins : function(){
+  this.slideMoins = function(){
     
     this.changeSlide(-1);
-  },
+  };
 
-  changeSlide : function(direction){
+  this.changeSlide = function(direction){
 
     this.slides[this.slideIndex].style.opacity = "0"; // Fait disparaître l'image actuelle
     this.slideIndex += direction;
@@ -38,20 +38,22 @@ var Slideshow = {
     }
 
     this.slides[this.slideIndex].style.opacity = "1";
-  }
+  };
 
 };
 
+var slideshowAccueil = new Slideshow();
+
 //flèche droite appelle la méthode "next" de l'objet Slideshow
 
-document.getElementById("next").addEventListener("click", Slideshow.slidePlus.bind(Slideshow));
+document.getElementById("next").addEventListener("click", function() {slideshowAccueil.slidePlus()});
 
 
 //flèche gauche appelle la méthode "prev" de l'objet Slideshow
-document.getElementById("prev").addEventListener("click", Slideshow.slideMoins.bind(Slideshow));
+document.getElementById("prev").addEventListener("click", function() {slideshowAccueil.slideMoins()});
 
 // Gestion de l'appui et du relachement d'une touche du clavier
-document.addEventListener("keydown", Slideshow.clavier.bind(Slideshow));
+document.addEventListener("keydown", function() {slideshowAccueil.clavier()});
 
 // Scroll animé au clic sur la flèche du slider jusqu'à la map
 $("#book").on('click', function() {
