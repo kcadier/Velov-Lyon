@@ -1,41 +1,66 @@
 
-function compteur(secondes, interval) {
+function compteur(compteurWrapper, compteurHTML, secondes, interval, stationVille, declencheur) {
 
+	this.compteurWrapper = compteurWrapper;
+	this.compteurHTML = compteurHTML;
 	this.secondes = secondes;
 	this.interval = interval;
 	this.minutesElt = null; //element minute qui est inséré dans l'HTML
 	this.secondesElt = null; //element seconde qui est inséré dans l'HTML
 	this.nomStation = null;
 	this.compteARebour = null;
-	this.compteARebourFin = null;
 	this.annulationDeLaReservation = false;
+	this.stationVille = stationVille;
+	this.declencheur = declencheur;
 
+	//Encapsule this dans une variable pour corriger le contexte de certaines méthodes
 	var self = this;
+
+	this.initCompteur = function(){
+		self.checkSessionStorage();
+
+		document.getElementById(this.declencheur).addEventListener("click", function() {
+			signatureReservation.canvasClear();
+
+			// Verification d'une reservation déjà existante
+			if(sessionStorage.getItem("secondes")) {
+
+				// Demande de suppression de la reservation existante
+				self.reservationReset();
+			} else {
+				//Mise en place des sessions storage
+				sessionStorage.setItem("secondes", this.secondes);
+				sessionStorage.setItem("nomStation", stationVille.nom);
+
+				//Sauvegarde la session storage du nom de la station dans l'attribut de l'objet
+				self.nomStation = sessionStorage.getItem("nomStation");
+
+				//Recache le canvas + panneau infos
+				document.querySelector("#panneau").style.display = "none";
+				document.querySelector("#bg-reservation").style.display = "none";
+
+				// Insertion du nom de la station
+				document.getElementsByClassName(self.compteurWrapper)[0].style.display = "block";
+				document.querySelector(self.compteurHTML).innerHTML = self.nomStation;
+
+				self.confirmationReservation();			
+			}	
+		});
+	}
 
 
 	//confirmation d'une reservation
 	this.confirmationReservation = function() {
-
-		//Recache le canvas + panneau infos
-		document.getElementById("panneau").style.display = "none";
-		document.getElementById("bg-reservation").style.display = "none";
-
-		// Insertion du nom de la station
-		document.getElementsByClassName("compteurWrapper")[0].style.display = "block";
-		document.querySelector("#texteInfoResa strong").innerHTML = lyonStation.nom;
-
 		// MAJ Affichage avant le lancement
-		this.majAffichageCompteur();
+		self.majAffichageCompteur();
 
-		// Lancement du compte à rebours avec setInterval toutes les 1sec
-		
+		// Lancement du compte à rebours avec setInterval toutes les 1sec			
 		this.compteARebour = setInterval(function () {
 			self.majCompteur();
-		}, this.interval);
-
+			}, self.interval);	
 	};
 
-	this.majAffichageCompteur = function() {
+	self.majAffichageCompteur = function() {
 		if((this.secondes < 600) && (this.secondes>0)) {
 			// ajoute un 0 quand un seul chiffre
 			this.minutesElt = "0" + Math.floor(this.secondes/60);
@@ -68,46 +93,102 @@ function compteur(secondes, interval) {
 		if (this.secondes >= 0) {
 
 			this.secondes--;
+			sessionStorage.setItem("secondes", this.secondes);
+			
 
 		} else {
 			document.getElementById("FinDeReservation").style.display = "block";
 			document.getElementById("ReservationOk").style.display = "none";
 
-			this.compteARebourFin = setTimeout(this.finDeLaReservation, 3000);
-			// Arret du compte à rebours à 00:00
-			clearInterval(this.compteARebour);
+			self.compteARebourFin = setTimeout(self.finDeLaReservation, 4500);			
 		}
 
-		//console.log(self);
-
 		self.majAffichageCompteur();
-				
+
+		document.getElementById("btn-annuler").addEventListener("click", function() {
+		self.finDeLaReservation();
+		});			
 		
 	};
 
 	this.finDeLaReservation = function() {
 
-		//Reset du compteur
+		clearInterval(self.compteARebour);
+
 		self.secondes = secondes;
 		self.minutesElt = null;
 		self.secondesElt = null;
-		console.log(self);	
+
+		sessionStorage.clear();
+
 
 		// Remet l'affichage des blocs par défaut
-		document.getElementsByClassName("compteurWrapper")[0].style.display = "none";
+		document.getElementsByClassName(self.compteurWrapper)[0].style.display = "none";
 		document.getElementById("FinDeReservation").style.display = "none";
 		document.getElementById("ReservationOk").style.display = "block";
+
 	};
 
-}
 
-var compteurReservation = new compteur(1200,1000);
+	this.checkSessionStorage = function() {
+		if (sessionStorage.getItem("secondes")) {
+			self.secondes = sessionStorage.getItem("secondes");
+			self.nomStation = sessionStorage.getItem("nomStation");
 
-document.getElementById("btn-valider").addEventListener("click", function() {
-	compteurReservation.confirmationReservation();
-	signatureCanvas.canvasClear();
-})
+			document.querySelector(self.compteurHTML).innerHTML = self.nomStation;
+			document.getElementsByClassName(self.compteurWrapper)[0].style.display = "block";
 
-document.getElementById("btn-annuler").addEventListener("click", function() {
-	compteurReservation.finDeLaReservation();
-})
+			//Recache le canvas + panneau infos
+			document.getElementById("panneau").style.display = "none";
+			document.getElementById("bg-reservation").style.display = "none";
+
+			//Relance le compte à rebours ou il en etait
+			self.compteARebour = setInterval(function () {
+				self.majCompteur();
+				}, self.interval);
+
+		} else {
+			document.getElementsByClassName(self.compteurWrapper)[0].style.display = "none";
+			//sessionStorage.clear();
+			//clearInterval(self.compteARebour);
+			self.secondes = secondes;
+			self.minutesElt = null;
+			self.secondesElt = null;
+		}
+	};
+
+	this.reservationReset = function() {
+		if(self.nomStation != stationVille.nom) {
+			self.annulationDeLaReservation = window.confirm("Cette nouvelle réservation va annuler l'ancienne")
+		} else {
+			self.annulationDeLaReservation = window.confirm("Il y a déjà une réservation en cours sur cette station. \n Etes-vous sur de vouloir la supprimer ?")
+		}
+
+		if (self.annulationDeLaReservation) {
+			
+			sessionStorage.clear();
+			clearInterval(self.compteARebour);
+
+			self.secondes = secondes;
+			self.minutesElt = null;
+			self.secondesElt = null;
+
+			sessionStorage.setItem("nomStation", stationVille.nom);
+
+			//Recache le canvas + panneau infos
+			document.getElementById("panneau").style.display = "none";
+			document.getElementById("bg-reservation").style.display = "none";
+			document.querySelector(self.compteurHTML).innerHTML = stationVille.nom;
+
+
+			self.confirmationReservation();
+		}
+	};
+
+};
+
+var compteurReservation = new compteur("compteurWrapper", "#texteInfoResa strong", 1200, 1000, lyonStation, "btn-valider");
+
+compteurReservation.initCompteur();
+
+

@@ -79,7 +79,7 @@
 		<!-- Carte Gmap -->
 		<div class="section-map">
 			<div id="map"></div>
-			<div id="panneau"> <!-- Panneau qui s'affiche au clic sur un marker, avec infos affiché en JS récupérés sur l'API JCDeceaux -->
+			<div id="panneau" class="hideForCountdown"> <!-- Panneau qui s'affiche au clic sur un marker, avec infos affiché en JS récupérés sur l'API JCDeceaux -->
 				<h3> INFOS STATION </h3>
 				<ul id="InfoStationJS">
 					<li> <span id="Nom"> </span> </li>
@@ -93,7 +93,7 @@
 		</div>
 
 		<!-- Canvas de reservation -->
-		<section id="bg-reservation">
+		<section id="bg-reservation" class="hideForCountdown">
 			<div id="reservation">
 				<p id="titre-canvas"> </p> <!-- Titre affiché en JS -->
 				<canvas id ="canvas" height="200" width="350">
