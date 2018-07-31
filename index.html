@@ -15,129 +15,142 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 
-    	<!-- Montserrat Font + Pacifico -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat|Pacifico" rel="stylesheet"> 
-    
+    <!-- Montserrat Font + Pacifico -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Pacifico" rel="stylesheet">
+
 </head>
-    
-    
+
+
 <body>
 
-	<header>		
-		<img src="images/logo.png" alt="Louez votre Velo'v">
-		<nav>
-			<ul>
-				<li> <a href="#accueil"> Accueil </a> </li>
-				<li> <a href="#reservation"> Louez un vélo </a> </li>
-				<li> <a href="#contact"> Nous contacter </a> </li>
-			</ul>
-		</nav>
-	</header>
+    <header>
+        <img src="images/logo.png" alt="Louez votre Velo'v">
+        <nav>
+            <ul>
+                <li> <a href="#accueil"> Accueil </a> </li>
+                <li> <a href="#reservation"> Louez un vélo </a> </li>
+                <li> <a href="#contact"> Nous contacter </a> </li>
+            </ul>
+        </nav>
+    </header>
 
-	<section class="homepage">
-		<div class="slideshow-container">
+    <section class="homepage">
+        <div class="slideshow-container">
 
-			<!-- Images pour le slider avec nombres et texte -->
-			<div class="mySlides fade">
-				<img src="images/homepage01.jpg">
-				<h2 class="text"> Déplacez-vous à Lyon avec Vélo'v ! </h2>
-			</div>
+            <!-- Images pour le slider avec nombres et texte -->
+            <div class="mySlides fade">
+                <img src="images/homepage01.jpg">
+                <h2 class="text"> Déplacez-vous à Lyon avec Vélo'v ! </h2>
+            </div>
 
-			<div class="mySlides fade">
-				<img src="images/homepage02.jpg">
-				<h2 class="text"> Sélectionnez votre station de départ sur la carte </h2>
-			</div>
+            <div class="mySlides fade">
+                <img src="images/homepage02.jpg">
+                <h2 class="text"> Sélectionnez votre station de départ sur la carte </h2>
+            </div>
 
-			<div class="mySlides fade">
-				<img src="images/homepage03.jpg">
-				<h2 class="text"> Cliquez sur "Réserver" dans le panneau latéral et signez dans l'encart prévu à cet effet</h2>
-			</div>
+            <div class="mySlides fade">
+                <img src="images/homepage03.jpg">
+                <h2 class="text"> Cliquez sur "Réserver" dans le panneau latéral et signez dans l'encart prévu à cet effet</h2>
+            </div>
 
-			<div class="mySlides fade">
-				<img src="images/homepage04.jpg">
-				<h2 class="text"> Votre réservation est confirmée. <br> Vous disposez de 20 minutes pour retirer votre Velo'v.</h2>
-			</div>
+            <div class="mySlides fade">
+                <img src="images/homepage04.jpg">
+                <h2 class="text"> Votre réservation est confirmée. <br> Vous disposez de 20 minutes pour retirer votre Velo'v.</h2>
+            </div>
 
-			<!-- Bouttons control prev et next -->
+            <!-- Bouttons control prev et next -->
 
-			<a id="prev"> &#10094; </a>
-			<a id="next"> &#10095; </a>
-			<a id="book"> <i class="fas fa-angle-double-down"></i> </a>
-			
-		</div>
-	</section> <!-- Fin de la homepage -->
+            <a id="prev"> &#10094; </a>
+            <a id="next"> &#10095; </a>
+            <a id="book"> <i class="fas fa-angle-double-down"></i> </a>
+
+        </div>
+    </section>
+    <!-- Fin de la homepage -->
 
 
-	<section class="location" id="booking">
-		<!-- Titre au dessus de la carte -->
-		<div class="gradient">
-			<h1> Réservez votre Vélo'v à Lyon ! </h1>
-		</div>
-		<p> <i class="fas fa-arrow-right"></i> Séléctionnez votre station de départ puis cliquez sur réserver un Vélo'v </p>
-		<!-- Fin de titre -->
+    <section class="location" id="booking">
+        <!-- Titre au dessus de la carte -->
+        <div class="gradient">
+            <h1> Réservez votre Vélo'v à Lyon ! </h1>
+        </div>
+        <p> <i class="fas fa-arrow-right"></i> Séléctionnez votre station de départ puis cliquez sur réserver un Vélo'v </p>
+        <!-- Fin de titre -->
 
-		<!-- Carte Gmap -->
-		<div class="section-map">
-			<div id="map"></div>
-			<div id="panneau" class="hideForCountdown"> <!-- Panneau qui s'affiche au clic sur un marker, avec infos affiché en JS récupérés sur l'API JCDeceaux -->
-				<h3> INFOS STATION </h3>
-				<ul id="InfoStationJS">
-					<li> <span id="Nom"> </span> </li>
-					<li> <span id="Etat"> </span> </li>
-					<li> <span id="Velos">  </span> </li>
-					<li> <span id="Places"> </span> </li>
-				</ul>
-				<a href=#reservation class="boutton-resa"> RÉSERVER </a>
-				<span id="Street"> </span> <!-- Vue fenêtre google street -->
-			</div>
-		</div>
+        <!-- Carte Gmap -->
+        <div class="section-map">
+            <div id="map"></div>
+            <div id="panneau" class="hideForCountdown">
+                <!-- Panneau qui s'affiche au clic sur un marker, avec infos affiché en JS récupérés sur l'API JCDeceaux -->
+                <h3> INFOS STATION </h3>
+                <ul id="InfoStationJS">
+                    <li> <span id="Nom"> </span> </li>
+                    <li> <span id="Etat"> </span> </li>
+                    <li> <span id="Velos">  </span> </li>
+                    <li> <span id="Places"> </span> </li>
+                </ul>
+                <a href=#reservation class="boutton-resa"> RÉSERVER </a>
+                <span id="Street"> </span>
+                <!-- Vue fenêtre google street -->
+            </div>
+        </div>
 
-		<!-- Canvas de reservation -->
-		<section id="bg-reservation" class="hideForCountdown">
-			<div id="reservation">
-				<p id="titre-canvas"> </p> <!-- Titre affiché en JS -->
-				<canvas id ="canvas" height="200" width="350">
+        <!-- Canvas de reservation -->
+        <section id="bg-reservation" class="hideForCountdown">
+            <div id="reservation">
+                <p id="titre-canvas"> </p>
+                <!-- Titre affiché en JS -->
+                <canvas id="canvas" height="200" width="350">
 					<p> Votre navigateur ne supporte pas Canvas, merci bien vouloir le mettre à jour </p>
 				</canvas>
-				<div id="bouttons-valid">
-					<button id="btn-effacer"> Effacer </button>
-					<button id="btn-valider"> Valider </button>
-				</div>
-			</div>
-		</section> <!-- Fin section Canvas -->
+                <div id="bouttons-valid">
+                    <button id="btn-effacer"> Effacer </button>
+                    <button id="btn-valider"> Valider </button>
+                </div>
+            </div>
+        </section>
+        <!-- Fin section Canvas -->
 
-		<section class="compteurWrapper">
-			<div class="titresCompteur">
-				<h4 id="ReservationOk"> Reservation effectuée </h4>
-				<h4 id="FinDeReservation"> Votre reservation a expirée </h4>
-			</div>
+        <section class="compteurWrapper">
+            <div class="titresCompteur">
+                <h4 id="ReservationOk"> Reservation effectuée </h4>
+                <h4 id="FinDeReservation"> Votre reservation a expirée </h4>
+            </div>
 
-			<p id="texteInfoResa"> Vous avez réservé un Vélo'v à la station : <strong> <!-- Affichage du texte en JS --> </strong> </p>
-			
-			<p> Votre réservation expirera dans : </p>
-			<p id="compteur"> </p> <!-- Compteur JS -->
+            <p id="texteInfoResa"> Vous avez réservé un Vélo'v à la station : <strong> <!-- Affichage du texte en JS --> </strong> </p>
 
-			<button id="btn-annuler"> Annuler </button>
+            <p> Votre réservation expirera dans : </p>
+            <p id="compteur"> </p>
+            <!-- Compteur JS -->
 
-		</section> <!-- Fin du Compteur -->
+            <button id="btn-annuler"> Annuler </button>
 
-	</section> <!-- Fin section partie location -->
+        </section>
+        <!-- Fin du Compteur -->
 
-	<footer>
-		<img src="images/logo.png">
-		<p> Kevin Cadier Copyright © 2018 - Projet Openclassroom
-	</footer>
-    
+    </section>
+    <!-- Fin section partie location -->
+
+    <footer>
+        <img src="images/logo.png">
+        <p> Kevin Cadier Copyright © 2018 - Projet Openclassroom
+    </footer>
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="script/slideshow.js"></script>
-    <script type="text/javascript" src="script/gmap.js"></script> 
+    <script type="text/javascript" src="script/gmap.js"></script>
     <script type="text/javascript" src="script/markerclusterer.js"></script>
     <script type="text/javascript" src="script/canvas.js"></script>
-    <script type="text/javascript" src="script/compteur.js"> </script>
-    <script async defer src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4msM26ONki04hywG7X7e8l0ZiIl6iEFE&callback=velovMaps.initMap"> </script>
-    
-</body>
-    
+    <script type="text/javascript" src="script/compteur.js">
 
-</html>    
-    
+
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4msM26ONki04hywG7X7e8l0ZiIl6iEFE&callback=velovMaps.initMap">
+
+
+    </script>
+
+</body>
+
+
+</html>
