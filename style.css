@@ -78,6 +78,8 @@ header {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    padding-right: 20px;
+    padding-left: 20px;
 }
 
 header img {
@@ -111,6 +113,10 @@ header ul li:nth-child(2) a:hover {
 
 header ul li:nth-child(3) a:hover {
     color: #6768fe;
+}
+
+#checkbox-burger, .toggle {
+	display: none;
 }
 
 
@@ -148,7 +154,7 @@ header ul li:nth-child(3) a:hover {
 #next {
     cursor: pointer;
     position: absolute;
-    top: 50%;
+    top: 40%;
     width: auto;
     margin-top: -22px;
     padding: 16px;
@@ -196,7 +202,7 @@ header ul li:nth-child(3) a:hover {
 #book {
     z-index: 5;
     position: absolute;
-    bottom: 5%;
+    top: 80%;
     left: 47%;
     background: rgba(0, 0, 0, 0.2);
     padding: 8px 20px;
@@ -229,6 +235,11 @@ header ul li:nth-child(3) a:hover {
 
 
 /* --------------------  CARTE VELO'V ------------------- */
+
+.sousTitre{
+	display: block;
+	height: 50px;
+}
 
 #map {
     width: 80%;
@@ -365,6 +376,10 @@ header ul li:nth-child(3) a:hover {
 #panneau strong {
     margin-right: 10px;
     font-weight: bold;
+}
+
+#InfoStationJS li span strong{
+	color:#15d9a4;
 }
 
 
@@ -518,6 +533,16 @@ header ul li:nth-child(3) a:hover {
     cursor: url("images/cursor.png") 3 43, auto;
 }
 
+#titre-canvas{
+	color: white !important;
+	font-weight: bold !important;
+}
+
+#titre-canvas strong{
+	color:white !important;
+	font-weight: normal !important;
+}
+
 
 /* --------------------- COMPTEUR -------------------- */
 
@@ -571,7 +596,7 @@ header ul li:nth-child(3) a:hover {
 }
 
 #compteur {
-    font-size: 36px;
+    font-size: 42px;
     color: #f85243;
     font-weight: bold;
     margin-bottom: 30px;
@@ -598,4 +623,254 @@ footer img {
 footer p {
     color: white;
     margin: 1%
+}
+
+
+/* ------------------------ MEDIA QUERIES ------------------- */
+@media screen and (max-width: 671px){
+
+	#panneau{
+		width: 220px;
+	}
+
+	footer p
+	{
+		font-size:12px !important;
+	}
+
+	#Street{
+		display: none !important;
+	}
+
+	#InfoStationJS{
+		margin-right: 20px;
+		margin-left: -20px;
+	}
+
+	#panneau .boutton-resa {
+
+    width: 130px;
+    margin-top: 80px;
+    letter-spacing: 4px;
+    font-size: 16px;
+}
+
+	header{
+		display: flex;
+		flex-direction: column;
+	}
+
+	nav ul li a{
+		font-size: .95em;
+	}
+
+	nav {
+		margin-top: -10px;
+	}
+
+	#prev, #next{
+		top:150px;
+		font-size:14px;
+		padding: 12px;
+	}
+
+	.toggle {
+		display: block;
+		text-align: center;
+		font-size: 30px;
+		cursor: pointer;
+		height: 44px;
+		color: white;
+		transition: all .1s linear;
+		margin-bottom: 10px;
+		border-radius: 5px 5px 0px 0px;
+		 background: -moz-linear-gradient(left, #15d9a4 0%, #1db5d9 51%, #6669fe 100%);
+	    /* FF3.6-15 */
+	    background: -webkit-linear-gradient(left, #15d9a4 0%, #1db5d9 51%, #6669fe 100%);
+	    /* Chrome10-25,Safari5.1-6 */
+	    background: linear-gradient(to right, #15d9a4 0%, #1db5d9 51%, #6669fe 100%);
+	    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#15d9a4', endColorstr='#6669fe', GradientType=1);
+
+    	margin-bottom: 0px;
+	}
+
+	#checkbox-burger:checked + label .toggle  {
+		background: -moz-linear-gradient(left, #ff9234 0%, #ee2a3e 51%, #a92a5d 100%);
+    	/* FF3.6-15 */
+    	background: -webkit-linear-gradient(left, #ff9234 0%, #ee2a3e 51%, #a92a5d 100%);
+    	/* Chrome10-25,Safari5.1-6 */
+    	background: linear-gradient(to right, #ff9234 0%, #ee2a3e 51%, #a92a5d 100%);
+    	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+
+    	margin-bottom: 0px;
+	}
+
+
+	#checkbox-burger:checked + label .menu  li {
+		opacity: 1;
+		visibility: visible;
+		transition: all .7s linear;
+	}
+
+	#checkbox-burger:checked + label .menu {
+		height: 150px;
+	}
+
+	.menu {
+		border-radius: 5px 5px 0px 0px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		align-items: center;
+		height: 0px;
+		transition: height .3s linear;
+	}
+
+	.menu li {
+		display: flex;
+		align-self: center;
+		width: 100%;
+		justify-content: center;
+		align-items: center;
+		opacity: 0;
+		visibility: hidden;
+		margin-right: 35px;
+	}
+
+	.menu li a {
+		margin: 0 auto;
+		text-align: center;
+		align-self: center;
+		align-content: center;
+		font-size: 1.1em;
+		text-align: center;
+	}
+
+	.menu li a{
+		padding-left: 0px;
+		padding-top: 10px;
+		border-top: 1px solid white;
+	}
+
+	.menu li:nth-child(1) a{
+		border-color:#15d9a4;
+	}
+
+	.menu li:nth-child(2) a{
+		border-color:#1db7d7;
+	}
+
+	.menu li:nth-child(3) a{
+		border-color:#6669fe;
+	}
+
+		.mySlides .text{
+		font-size:24px;
+		margin-left:-10px;
+	}
+
+	#book{
+		top:65%;
+	}
+
+	.slideshow-container{
+		height: 400px;
+	}
+
+	.sousTitre{
+	font-size: 16px !important
+	}
+
+	.location h1{
+		font-size: 22px;
+	}
+
+	.sousTitre i{
+		display: none;
+	}
+
+	#bouttons-valid button, #btn-annuler {
+    width: 115px;
+    font-size: 16px;
+    letter-spacing: 4px;
+	}
+
+	#compteur{
+		margin-top: 10px;
+		margin-bottom: 25px;
+	}
+
+	.compteurWrapper p{
+		font-size: 18px;
+		padding-right: 10px !important;
+		padding-left: 10px !important;
+	}
+}
+
+
+
+
+}
+
+@media screen and (min-width: 672px) and (max-width: 960px){
+	nav ul li a{
+		font-size: .95em;
+	}
+
+	.location h1{
+		font-size: 28px;
+	}
+
+	.sousTitre i{
+		display: none;
+	}
+
+	#prev, #next{
+		top:150px;
+	}
+
+	.mySlides .text{
+		font-size:32px;
+	}
+
+	#book{
+		top:70%;
+	}
+
+	.slideshow-container{
+		height: 400px;
+	}
+
+	.sousTitre{
+	font-size: 18px !important
+	}
+}
+
+@media screen and (min-width: 961px) and (max-width: 1120px){
+	#book{
+		top:70%;
+	}
+
+	.slideshow-container{
+		height: 550px;
+	}
+
+}
+
+
+@media screen and (min-width: 1121px) and (max-width: 1285px){
+
+	#book{
+		top:80%;
+	}
+
+	.slideshow-container{
+		height: 600px;
+	}
+
+	.location h1{
+		margin-bottom: 30px;
+	}
+
 }

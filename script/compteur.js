@@ -54,12 +54,12 @@ function compteur(compteurWrapper, compteurHTML, secondes, interval, stationVill
         self.majAffichageCompteur();
 
         // Lancement du compte à rebours avec setInterval toutes les 1sec			
-        this.compteARebour = setInterval(function () {
+        self.compteARebour = setInterval(function () {
             self.majCompteur();
         }, self.interval);
     };
 
-    self.majAffichageCompteur = function () {
+    this.majAffichageCompteur = function () {
         if ((this.secondes < 600) && (this.secondes > 0)) {
             // ajoute un 0 quand un seul chiffre
             this.minutesElt = "0" + Math.floor(this.secondes / 60);
@@ -77,7 +77,7 @@ function compteur(compteurWrapper, compteurHTML, secondes, interval, stationVill
         }
         // Insertion du compteur dans l'HTML
         document.getElementById("compteur").innerHTML = this.minutesElt + " : " + this.secondesElt;
-
+        console.log("majAffichageCompteur")
     };
 
 
@@ -95,6 +95,11 @@ function compteur(compteurWrapper, compteurHTML, secondes, interval, stationVill
             document.getElementById("ReservationOk").style.display = "none";
 
             self.compteARebourFin = setTimeout(self.finDeLaReservation, 4500);
+
+            clearInterval(self.compteARebour);
+            // Evite de stocker la valeure de compteARebour inutilement
+            self.compteARebour = null;
+            console.log("else majCompteur");
         }
 
         self.majAffichageCompteur();
@@ -107,19 +112,20 @@ function compteur(compteurWrapper, compteurHTML, secondes, interval, stationVill
 
     this.finDeLaReservation = function () {
 
-        clearInterval(self.compteARebour);
-
         self.secondes = secondes;
         self.minutesElt = null;
         self.secondesElt = null;
 
         sessionStorage.clear();
+        console.log("fin de reservation");
 
 
         // Remet l'affichage des blocs par défaut
         document.getElementsByClassName(self.compteurWrapper)[0].style.display = "none";
         document.getElementById("FinDeReservation").style.display = "none";
         document.getElementById("ReservationOk").style.display = "block";
+
+        clearInterval(self.compteARebour);
 
     };
 
@@ -148,6 +154,7 @@ function compteur(compteurWrapper, compteurHTML, secondes, interval, stationVill
             self.secondes = secondes;
             self.minutesElt = null;
             self.secondesElt = null;
+            console.log("session storage vide");
         }
     };
 

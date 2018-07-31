@@ -9,7 +9,6 @@ function Slideshow(arrayOfSlides, buttonPrev, buttonNext) {
 
     var self = this;
 
-    this.init = function () {
         //flèche droite appelle la méthode "next" de l'objet Slideshow
         document.getElementById(this.buttonNext).addEventListener("click", function () {
             self.slidePlus()
@@ -27,14 +26,12 @@ function Slideshow(arrayOfSlides, buttonPrev, buttonNext) {
         });
 
         // Scroll animé au clic sur la flèche du slider jusqu'à la map
-        $("#book").on('click', function () {
+        $("#book").click(function () {
             var body = $("html, body");
             body.stop().animate({
                 scrollTop: $('.location').offset().top
             }, "500");
-        })
-
-    };
+        });
 
     this.clavier = function () {
         if (event.keyCode === 39) {
@@ -61,8 +58,8 @@ function Slideshow(arrayOfSlides, buttonPrev, buttonNext) {
         this.slideIndex += direction;
 
         if (this.slideIndex <= -1) {
-            this.slideIndex = this.slides.length - 1;
-        } else if (this.slideIndex >= this.slides.length - 1) {
+            this.slideIndex = this.slides.length-1;
+        } else if (this.slideIndex >= this.slides.length) {
             this.slideIndex = 0;
         }
 
@@ -72,5 +69,3 @@ function Slideshow(arrayOfSlides, buttonPrev, buttonNext) {
 };
 
 var slideshowAccueil = new Slideshow("mySlides", "prev", "next");
-
-slideshowAccueil.init();

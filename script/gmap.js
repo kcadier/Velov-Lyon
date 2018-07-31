@@ -119,7 +119,6 @@ function Station(lienRequeteAjax, mapCible) {
 
                     // Gestion des autorisation des reservations
                     self.autorisationDesReservations();
-
                 });
 
             }); // Fin de boucle données stations
@@ -161,11 +160,11 @@ function Station(lienRequeteAjax, mapCible) {
 
     this.insertionDonneesStation = function () {
         // Insertion des donnÃ©es dans la page
-        document.getElementById("Nom").innerHTML = " <strong> NOM : </strong>  " + this.nom;
-        document.getElementById("Etat").innerHTML = " <strong> ETAT : </strong>  " + ((this.etat === 'OPEN') ? 'OUVERTE' : 'FERMEÉE');
-        document.getElementById("Velos").innerHTML = " <strong> VELO'V DISPO : </strong>  " + this.nbVelo;
-        document.getElementById("Places").innerHTML = " <strong> PLACES LIBRES : </strong>  " + this.nbAttache;
-        document.getElementById("titre-canvas").innerHTML = " <strong> Confirmez votre réservation à la station : </strong>  " + this.nom;
+        document.getElementById("Nom").innerHTML = " <strong> NOM&nbsp;: </strong>  " + this.nom;
+        document.getElementById("Etat").innerHTML = " <strong> ETAT&nbsp;: </strong>  " + ((this.etat === 'OPEN') ? 'OUVERTE' : 'FERMEÉE');
+        document.getElementById("Velos").innerHTML = " <strong> VELO'V DISPO&nbsp;: </strong>  " + this.nbVelo;
+        document.getElementById("Places").innerHTML = " <strong> PLACES LIBRES&nbsp;: </strong>  " + this.nbAttache;
+        document.getElementById("titre-canvas").innerHTML = " <strong> Confirmez votre réservation à la station&nbsp;: </strong>  " + this.nom;
 
 
     };
@@ -195,13 +194,11 @@ function Station(lienRequeteAjax, mapCible) {
         }
     };
 
-
+  this.initStation();
 };
 
 var velovMaps = new Maps(45.757, 4.855, 13);
 
 var lyonStation = new Station("https://api.jcdecaux.com/vls/v1/stations?contract=lyon&apiKey=fa9832e5de05b90c18bbf6cd5ccb0f24676f2fa7", velovMaps);
-
-lyonStation.initStation();
 
 // Requête Ajax qui permet de récupérer la liste des stations

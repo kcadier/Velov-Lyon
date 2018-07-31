@@ -26,11 +26,15 @@
     <header>
         <img src="images/logo.png" alt="Louez votre Velo'v">
         <nav>
-            <ul>
-                <li> <a href="#accueil"> Accueil </a> </li>
-                <li> <a href="#reservation"> Louez un vélo </a> </li>
-                <li> <a href="#contact"> Nous contacter </a> </li>
-            </ul>
+        	<input type="checkbox" id="checkbox-burger">
+        	<label for="checkbox-burger">
+            	<ul class="menu">
+                	<li> <a href="#accueil"> Accueil </a> </li>
+                	<li> <a href="#reservation"> Louez&nbsp;un&nbsp;vélo </a> </li>
+                	<li> <a href="#contact"> Nous&nbsp;contacter </a> </li>
+            	</ul>
+            	<span class="toggle"> ☰ </span>
+        	</label>
         </nav>
     </header>
 
@@ -72,9 +76,9 @@
     <section class="location" id="booking">
         <!-- Titre au dessus de la carte -->
         <div class="gradient">
-            <h1> Réservez votre Vélo'v à Lyon ! </h1>
+            <h1> Réservez votre Vélo'v à Lyon&nbsp;! </h1>
         </div>
-        <p> <i class="fas fa-arrow-right"></i> Séléctionnez votre station de départ puis cliquez sur réserver un Vélo'v </p>
+        <p class="sous-titre"> <i class="fas fa-arrow-right"></i> Séléctionnez votre station de départ puis cliquez sur réserver un Vélo'v </p>
         <!-- Fin de titre -->
 
         <!-- Carte Gmap -->
@@ -100,7 +104,7 @@
             <div id="reservation">
                 <p id="titre-canvas"> </p>
                 <!-- Titre affiché en JS -->
-                <canvas id="canvas" height="200" width="350">
+                <canvas id="canvas" height="200" width="290">
 					<p> Votre navigateur ne supporte pas Canvas, merci bien vouloir le mettre à jour </p>
 				</canvas>
                 <div id="bouttons-valid">
@@ -119,7 +123,7 @@
 
             <p id="texteInfoResa"> Vous avez réservé un Vélo'v à la station : <strong> <!-- Affichage du texte en JS --> </strong> </p>
 
-            <p> Votre réservation expirera dans : </p>
+            <p> Votre réservation expirera dans&nbsp;: </p>
             <p id="compteur"> </p>
             <!-- Compteur JS -->
 
@@ -133,7 +137,7 @@
 
     <footer>
         <img src="images/logo.png">
-        <p> Kevin Cadier Copyright © 2018 - Projet Openclassroom
+        <p>© Kevin Cadier 2018 - Projet OC
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
