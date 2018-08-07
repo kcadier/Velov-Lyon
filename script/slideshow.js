@@ -1,21 +1,21 @@
-// Slideshow accueil
+// Slider Tutoriel Velo'v App
 
 function Slideshow(arrayOfSlides, buttonPrev, buttonNext) {
 
     this.slides = document.getElementsByClassName(arrayOfSlides); // On cible les div qui contiennent les slides et les textes
-    this.slideIndex = 0; // initialisation à 0 => permet de changer d'image
+    this.slideIndex = 0; // initialisation à l'index 0 => permettra de changer d'image
     this.buttonPrev = buttonPrev;
     this.buttonNext = buttonNext;
 
     var self = this;
 
-        //flèche droite appelle la méthode "next" de l'objet Slideshow
+        //Clic sur l'icon flèche droite appelle la méthode SlidePlus de l'objet
         document.getElementById(this.buttonNext).addEventListener("click", function () {
             self.slidePlus()
         });
 
 
-        //flèche gauche appelle la méthode "prev" de l'objet Slideshow
+        //Clic sur l'icon flèche gauche appelle la méthode SlideMoins de l'objet Slideshow
         document.getElementById(this.buttonPrev).addEventListener("click", function () {
             self.slideMoins()
         });
@@ -35,34 +35,34 @@ function Slideshow(arrayOfSlides, buttonPrev, buttonNext) {
 
     this.clavier = function () {
         if (event.keyCode === 39) {
-            this.slidePlus(); // Touche Droite activée
+            this.slidePlus(); // Si la touche Droite est activée, lance la méthode slidePlus
         } else if (event.keyCode === 37) {
-            this.slideMoins(); // Touche Gauche activée
+            this.slideMoins(); // Si la touche Gauche est activée, lance la méthode slideMoins
         }
     };
 
     this.slidePlus = function () {
-
-        this.changeSlide(+1);
+        this.changeSlide(+1); 
     };
 
 
     this.slideMoins = function () {
-
         this.changeSlide(-1);
     };
 
     this.changeSlide = function (direction) {
 
         this.slides[this.slideIndex].style.opacity = "0"; // Fait disparaître l'image actuelle
-        this.slideIndex += direction;
+        this.slideIndex += direction; //Ajoute +1 ou -1 au slideIndex
 
+        //Si quand SlideMoins activé il n'y a plus de Slide, retourne à la dernière Slide
         if (this.slideIndex <= -1) {
             this.slideIndex = this.slides.length-1;
+        // Si quand SlidePlus est activé, il n'y a plus de Slide, retourne à la première Slide
         } else if (this.slideIndex >= this.slides.length) {
             this.slideIndex = 0;
         }
-
+        // Fait apparaître le nouveau Slide
         this.slides[this.slideIndex].style.opacity = "1";
     };
 

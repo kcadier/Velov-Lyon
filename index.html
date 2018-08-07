@@ -8,15 +8,20 @@
     <meta charset="utf-8">
     <meta name="description" content="Location de vélo'v en libre service à Lyon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="shortcut icon" href="images/favico.png">
+   
+    <link rel="shortcut icon" href="images/ico/favico.png">
 
     <!-- CSS -->
-
+    <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 
     <!-- Montserrat Font + Pacifico -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Pacifico" rel="stylesheet">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="images/ico/apple57.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="images/ico/apple72.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="images/ico/apple114.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="images/ico/apple144.png" />
 
 </head>
 
@@ -28,10 +33,10 @@
         <nav>
         	<input type="checkbox" id="checkbox-burger">
         	<label for="checkbox-burger">
-            	<ul class="menu">
+            	<ul class="menu" id="accueil">
                 	<li> <a href="#accueil"> Accueil </a> </li>
-                	<li> <a href="#reservation"> Louez&nbsp;un&nbsp;vélo </a> </li>
-                	<li> <a href="#contact"> Nous&nbsp;contacter </a> </li>
+                	<li> <a href="#location-velo"> Louez&nbsp;un&nbsp;vélo </a> </li>
+                	<li> <a href="mailto:contact@kevincadier.fr?Subject=VelovLyon"> Nous&nbsp;contacter </a> </li>
             	</ul>
             	<span class="toggle"> ☰ </span>
         	</label>
@@ -76,7 +81,7 @@
     <section class="location" id="booking">
         <!-- Titre au dessus de la carte -->
         <div class="gradient">
-            <h1> Réservez votre Vélo'v à Lyon&nbsp;! </h1>
+            <h1 id="location-velo"> Réservez votre Vélo'v à&nbsp;Lyon&nbsp;! </h1>
         </div>
         <p class="sous-titre"> <i class="fas fa-arrow-right"></i> Séléctionnez votre station de départ puis cliquez sur réserver un Vélo'v </p>
         <!-- Fin de titre -->

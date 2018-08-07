@@ -1,9 +1,15 @@
-function compteur(compteurWrapper, compteurHTML, secondes, interval, stationVille, declencheur) {
+function compteur(compteurWrapper, compteurHTML, secondes, interval, stationVille, declencheur, infosStationsWrapper, canvasWrapper, countDownElt, debutReservationTitre, finReservationTitre, bouttonAnnuler) {
 
     this.compteurWrapper = compteurWrapper;
     this.compteurHTML = compteurHTML;
+    this.countDownElt = countDownElt;
     this.secondes = secondes;
     this.interval = interval;
+    this.infosStationsWrapper = infosStationsWrapper;
+    this.canvasWrapper = canvasWrapper;
+    this.bouttonAnnuler = bouttonAnnuler;
+    this.debutReservationTitre = debutReservationTitre;
+    this.finReservationTitre = finReservationTitre;
     this.minutesElt = null; //element minute qui est inséré dans l'HTML
     this.secondesElt = null; //element seconde qui est inséré dans l'HTML
     this.nomStation = null;
@@ -35,8 +41,8 @@ function compteur(compteurWrapper, compteurHTML, secondes, interval, stationVill
                 self.nomStation = sessionStorage.getItem("nomStation");
 
                 //Recache le canvas + panneau infos
-                document.querySelector("#panneau").style.display = "none";
-                document.querySelector("#bg-reservation").style.display = "none";
+                document.querySelector(self.infosStationsWrapper).style.display = "none";
+                document.querySelector(self.canvasWrapper).style.display = "none";
 
                 // Insertion du nom de la station
                 document.getElementsByClassName(self.compteurWrapper)[0].style.display = "block";
@@ -76,8 +82,7 @@ function compteur(compteurWrapper, compteurHTML, secondes, interval, stationVill
             this.secondesElt = "0" + this.secondesElt;
         }
         // Insertion du compteur dans l'HTML
-        document.getElementById("compteur").innerHTML = this.minutesElt + " : " + this.secondesElt;
-        console.log("majAffichageCompteur")
+        document.getElementById(self.countDownElt).innerHTML = this.minutesElt + " : " + this.secondesElt;
     };
 
 
@@ -91,20 +96,19 @@ function compteur(compteurWrapper, compteurHTML, secondes, interval, stationVill
 
 
         } else {
-            document.getElementById("FinDeReservation").style.display = "block";
-            document.getElementById("ReservationOk").style.display = "none";
+            document.getElementById(self.finReservationTitre).style.display = "block";
+            document.getElementById(self.debutReservationTitre).style.display = "none";
 
             self.compteARebourFin = setTimeout(self.finDeLaReservation, 4500);
 
             clearInterval(self.compteARebour);
             // Evite de stocker la valeure de compteARebour inutilement
             self.compteARebour = null;
-            console.log("else majCompteur");
         }
 
         self.majAffichageCompteur();
 
-        document.getElementById("btn-annuler").addEventListener("click", function () {
+        document.getElementById(self.bouttonAnnuler).addEventListener("click", function () {
             self.finDeLaReservation();
         });
 
@@ -117,13 +121,11 @@ function compteur(compteurWrapper, compteurHTML, secondes, interval, stationVill
         self.secondesElt = null;
 
         sessionStorage.clear();
-        console.log("fin de reservation");
-
 
         // Remet l'affichage des blocs par défaut
         document.getElementsByClassName(self.compteurWrapper)[0].style.display = "none";
-        document.getElementById("FinDeReservation").style.display = "none";
-        document.getElementById("ReservationOk").style.display = "block";
+        document.getElementById(self.finReservationTitre).style.display = "none";
+        document.getElementById(self.debutReservationTitre).style.display = "block";
 
         clearInterval(self.compteARebour);
 
@@ -139,8 +141,8 @@ function compteur(compteurWrapper, compteurHTML, secondes, interval, stationVill
             document.getElementsByClassName(self.compteurWrapper)[0].style.display = "block";
 
             //Recache le canvas + panneau infos
-            document.getElementById("panneau").style.display = "none";
-            document.getElementById("bg-reservation").style.display = "none";
+           	document.querySelector(self.infosStationsWrapper).style.display = "none";
+            document.querySelector(self.canvasWrapper).style.display = "none";
 
             //Relance le compte à rebours ou il en etait
             self.compteARebour = setInterval(function () {
@@ -149,12 +151,9 @@ function compteur(compteurWrapper, compteurHTML, secondes, interval, stationVill
 
         } else {
             document.getElementsByClassName(self.compteurWrapper)[0].style.display = "none";
-            //sessionStorage.clear();
-            //clearInterval(self.compteARebour);
             self.secondes = secondes;
             self.minutesElt = null;
             self.secondesElt = null;
-            console.log("session storage vide");
         }
     };
 
@@ -177,8 +176,8 @@ function compteur(compteurWrapper, compteurHTML, secondes, interval, stationVill
             sessionStorage.setItem("nomStation", stationVille.nom);
 
             //Recache le canvas + panneau infos
-            document.getElementById("panneau").style.display = "none";
-            document.getElementById("bg-reservation").style.display = "none";
+            document.querySelector(self.infosStationsWrapper).style.display = "none";
+            document.querySelector(self.canvasWrapper).style.display = "none";
             document.querySelector(self.compteurHTML).innerHTML = stationVille.nom;
 
 
@@ -188,6 +187,6 @@ function compteur(compteurWrapper, compteurHTML, secondes, interval, stationVill
 
 };
 
-var compteurReservation = new compteur("compteurWrapper", "#texteInfoResa strong", 1200, 1000, lyonStation, "btn-valider");
+var compteurReservation = new compteur("compteurWrapper", "#texteInfoResa strong", 1200, 1000, lyonStation, "btn-valider", "#panneau", "#bg-reservation", "compteur", "ReservationOk", "FinDeReservation", "btn-annuler");
 
 compteurReservation.initCompteur();

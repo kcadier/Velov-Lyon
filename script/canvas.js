@@ -1,4 +1,3 @@
-// Script pour le Canvas de signature (tuto ref : https://zipso.net/a-simple-touchscreen-sketchpad-using-javascript-and-html5/)
 
 function signatureCanvas(canvasWrapper, validationButton, clearButton, lineColor, lineWidth, lineCap) {
 
@@ -18,18 +17,19 @@ function signatureCanvas(canvasWrapper, validationButton, clearButton, lineColor
     this.lastY = null; // ici "null" car on ne sait pas d'ou partira la premiere ligne
 
     var self = this;
+    
     // Methode d'initialisation du Canvas + gestion des evenements declenches
-
     this.initCanvas = function () {
         self.context = document.getElementById(self.canvasWrapper).getContext('2d'); // On accede au contexte du Canvas
         document.getElementById(self.validationButton).style.display = "none"; // on cache le bouton de validation à l'initialisation comme le canvas est vide
 
-        var canvas = document.getElementById(self.canvasWrapper); // on stock le canvas dans une variable 'canvas'
+        var canvas = document.getElementById(self.canvasWrapper); // on stock le container du canvas HTML dans une variable
 
+        //Gestion des évènements qui vont lancer différentes méthodes
         canvas.addEventListener("mousedown", function (e) {
             self.sketchpad_mouseDown(e)
         });
-        document.body.addEventListener("mouseup", function (e) { // Le add event listener est sur le body cette fois, pour qu'on voit si le bouton est relaché en dehors du canvas
+        document.body.addEventListener("mouseup", function (e) { // Le addEventListener est sur le body cette fois, pour que l'on puisse voir si le bouton est relaché en dehors du canvas
             self.sketchpad_mouseUp(e)
         });
         canvas.addEventListener("mousemove", function (e) {
@@ -101,13 +101,13 @@ function signatureCanvas(canvasWrapper, validationButton, clearButton, lineColor
     // Activé à chaque fois que la souris est déplacé, à condition que le bouton gauche de la souris soit enfoncée
     this.sketchpad_mouseMove = function (e) {
         if (self.mouseDown === 1) {
-            self.drawLine(self.context, e.offsetX * 1, e.offsetY * 1, self.lineWidth);
+            self.drawLine(self.context, e.offsetX, e.offsetY, self.lineWidth);
         }
     };
 
     // Gestion des evenements tactiles 
     this.sketchpad_touchStart = function (e) {
-        self.drawLine(self.context, e.offsetX * 1, e.offsetY * 1, self.lineWidth);
+        self.drawLine(self.context, e.offsetX, e.offsetY, self.lineWidth);
         event.preventDefault(); // Evite que l'evenement mouseDown soit généré en plus de celui-ci
     };
 
@@ -121,7 +121,7 @@ function signatureCanvas(canvasWrapper, validationButton, clearButton, lineColor
 
         e.offsetX = e.touches[0].pageX - e.touches[0].target.offsetLeft; // calcul la position du curseur dans le canvas par rapport à la page
         e.offsetY = e.touches[0].pageY - e.touches[0].target.offsetTop;
-        self.drawLine(self.context, e.offsetX * 1, e.offsetY * 1, self.lineWidth);
+        self.drawLine(self.context, e.offsetX, e.offsetY, self.lineWidth);
     };
 
     this.canvasClear = function () {
